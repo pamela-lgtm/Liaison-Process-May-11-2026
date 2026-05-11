@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verandah Properties — The Liaison Process</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #008C82;
+    --teal-deep: #005F58;
+    --teal-mist: #E8F3F2;
+    --gold: #D4AF50;
+    --gold-soft: #F5EBD0;
+    --gold-deep: #7A5E1A;
+    --ink: #1A2E2C;
+    --slate: #4A5D5B;
+    --mist: #8B9A98;
+    --paper: #FAF8F3;
+    --paper-warm: #F3EFE4;
+    --line: #E2DED2;
+    --line-soft: #EFEBE0;
+    --alert: #B8572B;
+    --success: #4A7C59;
+
+    --role-pamela: #5A3F7A;
+    --role-pamela-bg: #F0E8F5;
+    --role-linda: #2F4B8C;
+    --role-linda-bg: #E8EDF5;
+    --role-megan: #3A6344;
+    --role-megan-bg: #E2EFE5;
+    --role-harvey: #8C5A2F;
+    --role-harvey-bg: #F5EAD8;
+    --role-owner: #8C4B2F;
+    --role-owner-bg: #F5EDE8;
+    --role-vendor: #4A5D5B;
+    --role-vendor-bg: #EFEBE0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none;
+    opacity: 0.025; z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 2; }
+
+  /* HERO */
+  .hero { padding: 68px 0 48px; border-bottom: 1px solid var(--line); position: relative; }
+  .hero::after {
+    content: ''; position: absolute; bottom: -1px; left: 40px;
+    width: 80px; height: 3px; background: var(--gold);
+  }
+
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 18px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--teal); }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 0.95; font-weight: 600; letter-spacing: -0.02em;
+    margin-bottom: 18px;
+  }
+  h1 em { font-style: italic; color: var(--teal); font-weight: 400; }
+
+  .lede {
+    font-size: 17px; color: var(--slate);
+    max-width: 720px; line-height: 1.55; margin-bottom: 32px;
+  }
+
+  .meta-strip {
+    display: flex; gap: 40px; flex-wrap: wrap;
+    padding-top: 28px; border-top: 1px solid var(--line-soft);
+  }
+  .meta-item { display: flex; flex-direction: column; gap: 4px; }
+  .meta-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--mist);
+  }
+  .meta-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 600;
+  }
+
+  /* VIEW TOGGLE */
+  .view-toggle-wrap {
+    margin: 36px 0 0;
+    display: flex;
+    gap: 8px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 6px;
+    width: fit-content;
+  }
+  .view-toggle {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: transparent;
+    border: none;
+    padding: 10px 18px;
+    cursor: pointer;
+    color: var(--slate);
+    border-radius: 2px;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+  .view-toggle:hover { color: var(--ink); }
+  .view-toggle.active {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  /* PHASE CARDS */
+  section.phase {
+    margin-top: 40px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .phase-header {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    align-items: center;
+    gap: 20px;
+    padding: 24px 28px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .phase-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--gold);
+    line-height: 1;
+    opacity: 0.85;
+  }
+
+  .phase-title-block { min-width: 0; }
+  .phase-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .phase-subtitle {
+    font-size: 13.5px;
+    color: var(--slate);
+    line-height: 1.4;
+  }
+
+  .phase-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--teal);
+    text-align: right;
+    line-height: 1.6;
+  }
+
+  .phase-body {
+    padding: 28px 28px 32px;
+  }
+
+  /* PHASE INTRO NOTE */
+  .phase-intro {
+    background: linear-gradient(135deg, var(--gold-soft) 0%, var(--paper-warm) 100%);
+    border-left: 3px solid var(--gold);
+    padding: 18px 22px;
+    margin-bottom: 24px;
+    font-size: 13.5px;
+    color: var(--slate);
+    line-height: 1.6;
+    font-style: italic;
+  }
+  .phase-intro strong { color: var(--ink); font-style: normal; font-weight: 600; }
+
+  /* SECTION (in-house vs owner-facing) */
+  .phase-section {
+    border-top: 1px solid var(--line-soft);
+    padding-top: 22px;
+    margin-top: 22px;
+  }
+  .phase-section:first-of-type {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .section-internal .section-header { color: var(--teal-deep); }
+  .section-owner .section-header { color: var(--gold-deep); }
+
+  .section-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+  }
+  .section-internal .section-dot { background: var(--teal); }
+  .section-owner .section-dot { background: var(--gold); }
+
+  /* TASK LIST */
+  .task-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .task {
+    display: grid;
+    grid-template-columns: 24px 1fr auto;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 18px;
+    background: var(--paper);
+    border: 1px solid var(--line-soft);
+    border-radius: 2px;
+  }
+  .task-marker {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--mist);
+    border-radius: 3px;
+    background: white;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  .task-content { min-width: 0; }
+  .task-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+    line-height: 1.35;
+  }
+  .task-detail {
+    font-size: 13px;
+    color: var(--slate);
+    line-height: 1.55;
+  }
+  .task-detail a {
+    color: var(--teal);
+    text-decoration: none;
+    border-bottom: 1px solid var(--teal);
+  }
+  .task-detail strong { color: var(--ink); font-weight: 600; }
+
+  /* ROLE BADGE */
+  .role-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 9px;
+    border-radius: 2px;
+    font-weight: 600;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 4px;
+    white-space: nowrap;
+  }
+  .role-pamela { background: var(--role-pamela-bg); color: var(--role-pamela); }
+  .role-linda { background: var(--role-linda-bg); color: var(--role-linda); }
+  .role-megan { background: var(--role-megan-bg); color: var(--role-megan); }
+  .role-harvey { background: var(--role-harvey-bg); color: var(--role-harvey); }
+  .role-owner { background: var(--role-owner-bg); color: var(--role-owner); }
+  .role-vendor { background: var(--role-vendor-bg); color: var(--role-vendor); }
+
+  /* EMAIL BRIEF BLOCK */
+  .email-brief {
+    background: white;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--teal);
+    border-radius: 2px;
+    margin: 16px 0 4px;
+    overflow: hidden;
+  }
+  .brief-header {
+    background: var(--teal-mist);
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--line-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .brief-header-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    font-weight: 600;
+  }
+  .brief-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: white;
+    border: 1px solid var(--gold);
+    color: var(--gold-deep);
+    padding: 4px 9px;
+    border-radius: 2px;
+    font-weight: 600;
+  }
+  .brief-body {
+    padding: 18px 22px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+  .brief-purpose {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--teal-deep);
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .brief-section {
+    margin-bottom: 14px;
+  }
+  .brief-section:last-child { margin-bottom: 0; }
+  .brief-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .brief-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .brief-list li {
+    padding: 4px 0 4px 18px;
+    position: relative;
+    font-size: 13.5px;
+    color: var(--slate);
+    line-height: 1.55;
+  }
+  .brief-list li::before {
+    content: '·';
+    position: absolute;
+    left: 4px;
+    top: 2px;
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .brief-list li strong { color: var(--ink); font-weight: 600; }
+
+  /* LINK CARDS */
+  .link-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    background: var(--teal-mist);
+    border: 1px solid var(--teal);
+    border-radius: 2px;
+    text-decoration: none;
+    color: var(--teal-deep);
+    margin: 10px 0;
+    transition: all 0.2s;
+  }
+  .link-card:hover { background: var(--teal); color: white; }
+  .link-card-icon {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .link-card:hover .link-card-icon { color: var(--paper); }
+  .link-card-content { flex: 1; min-width: 0; }
+  .link-card-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+    opacity: 0.7;
+  }
+  .link-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  /* HIDDEN BY VIEW TOGGLE */
+  body[data-view="internal"] .section-owner { display: none; }
+  body[data-view="owner"] .section-internal { display: none; }
+  body[data-view="owner"] .phase-intro { display: none; }
+
+  /* TIMELINE INDICATOR */
+  .timeline-marker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 8px 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mist);
+  }
+  .timeline-marker::before,
+  .timeline-marker::after {
+    content: '';
+    height: 1px;
+    background: var(--line);
+    flex: 1;
+  }
+  .timeline-marker::before { margin-right: 16px; }
+  .timeline-marker::after { margin-left: 16px; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 44px 0 56px;
+    margin-top: 56px;
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--teal);
+  }
+  .footer-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mist);
+    text-align: right;
+    line-height: 1.8;
+  }
+
+  @media (max-width: 720px) {
+    .wrap { padding: 0 20px; }
+    .hero { padding: 44px 0 32px; }
+    .phase-header {
+      grid-template-columns: 56px 1fr;
+      grid-template-rows: auto auto;
+      padding: 20px 22px;
+      gap: 14px;
+    }
+    .phase-meta {
+      grid-column: 1 / -1;
+      text-align: left;
+      padding-top: 8px;
+      border-top: 1px solid var(--line-soft);
+    }
+    .phase-num { font-size: 32px; }
+    .phase-title { font-size: 19px; }
+    .phase-body { padding: 20px 22px 24px; }
+    .task { grid-template-columns: 20px 1fr; }
+    .task .role-badge { grid-column: 2; justify-self: flex-start; }
+  }
+
+  @media print {
+    body::before { display: none; }
+    .view-toggle-wrap { display: none; }
+    body[data-view="internal"] .section-owner,
+    body[data-view="owner"] .section-internal { display: block !important; }
+    .phase { break-inside: avoid; border: 1px solid #ccc; }
+    .email-brief { break-inside: avoid; }
+  }
+</style>
+</head>
+<body data-view="internal">
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="eyebrow">Verandah Properties · Internal Process Document</div>
+    <h1>The Liaison<br><em>Process</em></h1>
+    <p class="lede">Linda's role in the new client journey — focused, focused, focused on the human, on-the-ground work she does best. Pamela owns the administrative spine of onboarding (forms, AppFolio setup, lockbox, portal, marketing launch). Linda is the warm face on the ground — property visits, walkthroughs, weekly owner communication through showings and applications, and meetings with current owners who come to view their properties. Each email touchpoint is a content brief Linda writes in her own voice.</p>
+
+    <div class="meta-strip">
+      <div class="meta-item">
+        <span class="meta-label">Owned By</span>
+        <span class="meta-val">Linda Lopez</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Title</span>
+        <span class="meta-val">New Client Liaison</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Active From</span>
+        <span class="meta-val">Walkthrough</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Ends At</span>
+        <span class="meta-val">Lease Signed</span>
+      </div>
+    </div>
+
+    <div class="view-toggle-wrap" role="tablist" aria-label="View toggle">
+      <button class="view-toggle active" data-view="internal" role="tab" aria-selected="true">In-House Tasks</button>
+      <button class="view-toggle" data-view="owner" role="tab" aria-selected="false">Owner-Facing Steps</button>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- PHASE 01 — THE HANDOFF -->
+  <!-- ============================================================ -->
+  <section class="phase">
+    <header class="phase-header">
+      <div class="phase-num">01</div>
+      <div class="phase-title-block">
+        <div class="phase-title">The Handoff</div>
+        <div class="phase-subtitle">Pamela closes, then formally introduces Linda to the owner</div>
+      </div>
+      <div class="phase-meta">Triggered By<br>PMA Signed</div>
+    </header>
+    <div class="phase-body">
+
+      <div class="phase-intro">
+        <strong>Pamela's role:</strong> Once the management agreement is signed, Pamela writes a personal introduction email connecting the owner to Linda. This is the symbolic transition — Pamela closed the relationship, and now Linda will be the white-glove liaison until the property is tenanted.
+      </div>
+
+      <div class="phase-section section-internal">
+        <div class="section-header"><span class="section-dot"></span><span>In-House Actions</span></div>
+        <ul class="task-list">
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Pamela sends introduction letter</div>
+              <div class="task-detail">Personally written, warm, signals the relationship continuity. Works whether Linda will visit in person (Lake Nona region) or whether a vendor will visit (out-of-region). The letter sets expectations and introduces Linda as the owner's primary contact through tenant placement.</div>
+            </div>
+            <span class="role-badge role-pamela">Pamela</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Pamela CCs Linda on the introduction</div>
+              <div class="task-detail">So Linda has full context and can pick up the relationship without re-introducing herself.</div>
+            </div>
+            <span class="role-badge role-pamela">Pamela</span>
+          </li>
+        </ul>
+
+        <div class="email-brief">
+          <div class="brief-header">
+            <span class="brief-header-label">Pamela → Owner · Introduction Letter</span>
+            <span class="brief-tag">Email Brief</span>
+          </div>
+          <div class="brief-body">
+            <div class="brief-purpose">Personally written by Pamela. Warm, concise, signals continuity. Each one tailored to the specific owner's tone and the relationship Pamela has built during the lead phase.</div>
+
+            <div class="brief-section">
+              <div class="brief-label">Should Cover</div>
+              <ul class="brief-list">
+                <li>Welcome to Verandah, acknowledgment of the PMA being signed</li>
+                <li>Formal introduction of <strong>Linda Lopez as the New Client Liaison</strong> — the owner's primary contact through tenant placement</li>
+                <li>Clear team overview: <strong>Pamela</strong> handles the admin spine — onboarding intake form, AppFolio setup, lockbox coordination, portal activation, and marketing launch communication. <strong>Linda</strong> is the warm face on the ground — handling the property walkthrough (Lake Nona, or coordinated vendor for out-of-region), then weekly showings updates, feedback themes, application updates, and price-adjustment conversations during marketing. <strong>Harvey (Marketing Manager)</strong> runs the listing publish &amp; syndication behind the scenes.</li>
+                <li>Heads-up that Linda will reach out <strong>within 24 hours</strong> — same day if the PMA is signed by 2 PM — with the next step (the New Client Onboarding form)</li>
+                <li>Note that Pamela remains available for strategy conversations</li>
+                <li>Brief mention that Megan and Luz on the Client Experience team will become the ongoing contacts after lease signing</li>
+              </ul>
+            </div>
+
+            <div class="brief-section">
+              <div class="brief-label">Tone</div>
+              <ul class="brief-list">
+                <li>Founder voice — warm, personal, signals the relationship matters</li>
+                <li>Reassuring that the handoff is intentional, not impersonal</li>
+                <li>CC Linda so she has full context</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-section section-owner">
+        <div class="section-header"><span class="section-dot"></span><span>Owner Experience</span></div>
+        <ul class="task-list">
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Receives warm introduction from Pamela</div>
+              <div class="task-detail">Owner now knows who their liaison is, what's coming next, and that Linda will be their primary contact during onboarding.</div>
+            </div>
+            <span class="role-badge role-owner">Owner</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="timeline-marker">Same day · PMA signed</div>
+
+  <!-- ============================================================ -->
+  <!-- PHASE 02 — CELEBRATION, ONBOARDING FORM & APPFOLIO SKELETON -->
+  <!-- ============================================================ -->
+  <section class="phase">
+    <header class="phase-header">
+      <div class="phase-num">02</div>
+      <div class="phase-title-block">
+        <div class="phase-title">Celebration, Onboarding Form &amp; AppFolio Skeleton</div>
+        <div class="phase-subtitle">Pamela owns — sends celebration page, onboarding form, builds AppFolio skeleton</div>
+      </div>
+      <div class="phase-meta">Owned By<br>Pamela</div>
+    </header>
+    <div class="phase-body">
+
+      <div class="phase-intro">
+        <strong>Pamela owns this entire phase as Director of New Business Development.</strong> The moment the PMA is signed, Pamela sends the celebratory welcome email with a link to the Verandah Welcome &amp; Journey page, sends the New Client Onboarding Jotform, and begins building out the AppFolio skeleton (owner page + property page). Linda enters the picture in Phase 04 (the property visit) where her warmth and on-the-ground presence matter most.
+      </div>
+
+      <div class="phase-section section-internal">
+        <div class="section-header"><span class="section-dot"></span><span>In-House Actions</span></div>
+        <ul class="task-list">
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Send celebration email with link to Welcome page</div>
+              <div class="task-detail">Confetti landing page that lays out the full new-owner journey, introduces the team, and plants the seed for a 5-star review once the property is leased. Includes preview of the steps Pamela owns and where Linda enters the picture.</div>
+            </div>
+            <span class="role-badge role-pamela">Pamela</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Send the New Client Onboarding Jotform</div>
+              <div class="task-detail">Captures property details Verandah needs to build out AppFolio Property Page. Owner completes — typically 15–20 minutes. Can be embedded in the celebration email or sent as a follow-up.</div>
+            </div>
+            <span class="role-badge role-pamela">Pamela</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Build AppFolio Owner Page skeleton</div>
+              <div class="task-detail">Owner name, phone, email, physical address, temporary tax ID placeholder (999-99-9999 until W-9 received), <strong>Tags:</strong> source (how they heard about Verandah) and communication preference (per the management agreement). The team fully builds out the page once skeleton is in place.</div>
+            </div>
+            <span class="role-badge role-pamela">Pamela</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Build AppFolio Property Page skeleton</div>
+              <div class="task-detail">Property title, type, address, county, year built, bed/bath count, square footage, reserve amount, management/leasing/renewal fees, late fee %, $500 maintenance limit, bank account assignments. Attach signed PMA + both Jotforms (Pre-Management Prep and New Client Onboarding) to the page. <strong>If Lake Nona:</strong> add to Lake Nona Property Group.</div>
+            </div>
+            <span class="role-badge role-pamela">Pamela</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Forward signed PMA to Athenée and Megan</div>
+              <div class="task-detail">Internal handoff so both team members have copies of the agreement. Athenée files; Megan reviews for any operational flags.</div>
+            </div>
+            <span class="role-badge role-pamela">Pamela</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Confirm SureVestor PP Bundle status with Athenée</div>
+              <div class="task-detail">Default: property goes into the SureVestor PP Bundle Promo once leased. Occasional exception (e.g., owner declines Platinum, wants Gold only). Pamela confirms with Athenée which path applies for this property.</div>
+            </div>
+            <span class="role-badge role-pamela">Pamela</span>
+          </li>
+        </ul>
+
+        <div class="email-brief">
+          <div class="brief-header">
+            <span class="brief-header-label">Pamela → Owner · Celebration &amp; Welcome</span>
+            <span class="brief-tag">Email Brief</span>
+          </div>
+          <div class="brief-body">
+            <div class="brief-purpose">The first owner-facing communication post-PMA. Celebratory, warm, sets the tone for the journey. Links to the Verandah Welcome &amp; Journey page (confetti landing page).</div>
+
+            <div class="brief-section">
+              <div class="brief-label">Should Cover</div>
+              <ul class="brief-list">
+                <li>Celebratory tone — "We did it! Your management agreement is signed."</li>
+                <li>Link to the Welcome &amp; Journey landing page (confetti experience that walks them through what's next)</li>
+                <li>Send the New Client Onboarding Form (embedded or linked)</li>
+                <li>Brief preview of the team and roles: <strong>Pamela handles the admin spine</strong> (forms, AppFolio setup, lockbox coordination, portal activation, marketing launch communication); <strong>Linda is the warm face on the ground</strong> (property walkthrough, weekly showings/feedback/applications updates during marketing); <strong>Harvey (Marketing Manager) runs the marketing launch behind the scenes</strong>; <strong>Megan and Luz</strong> on the Client Experience team take over once tenant is placed</li>
+                <li>Note that the 5-star Google review request will come post-lease — once they've experienced the full Verandah journey</li>
+              </ul>
+            </div>
+
+            <div class="brief-section">
+              <div class="brief-label">Tone</div>
+              <ul class="brief-list">
+                <li>Genuinely celebratory — this is a real milestone for both parties</li>
+                <li>Confident — Pamela is now in execution mode</li>
+                <li>Warm but professional — Pamela's founder voice</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-section section-owner">
+        <div class="section-header"><span class="section-dot"></span><span>Owner Experience</span></div>
+        <ul class="task-list">
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Receives celebration email + clicks through to Welcome page</div>
+              <div class="task-detail">Confetti, branded experience, sees the full team and the full journey laid out. Feels welcomed, knows what's coming.</div>
+            </div>
+            <span class="role-badge role-owner">Owner</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Completes New Client Onboarding Form</div>
+              <div class="task-detail">15–20 minutes. Captures property details Verandah needs to build out AppFolio and prepare marketing.</div>
+            </div>
+            <span class="role-badge role-owner">Owner</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="timeline-marker">Once onboarding form is submitted</div>
+
+  <!-- ============================================================ -->
+  <!-- PHASE 03 — LOCKBOX SETUP -->
+  <!-- ============================================================ -->
+  <section class="phase">
+    <header class="phase-header">
+      <div class="phase-num">03</div>
+      <div class="phase-title-block">
+        <div class="phase-title">Lockbox Setup</div>
+        <div class="phase-subtitle">Pamela coordinates with Megan to order the Rently box; Pamela sends owner the guide</div>
+      </div>
+      <div class="phase-meta">Owned By<br>Pamela</div>
+    </header>
+    <div class="phase-body">
+
+      <div class="phase-intro">
+        <strong>Pamela owns this phase</strong> as part of the admin spine. The Rently lockbox is ordered immediately after the onboarding form is submitted — well before the property is rent-ready. This ensures the box is on-site whenever the owner is available to drop in a key, and we're never the bottleneck on access. <strong>Megan is available as backup</strong> if the owner has technical Rently questions Pamela can't resolve directly.
+      </div>
+
+      <div class="phase-section section-internal">
+        <div class="section-header"><span class="section-dot"></span><span>In-House Actions</span></div>
+        <ul class="task-list">
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Pamela asks Megan to order the Rently lockbox</div>
+              <div class="task-detail">Quick internal message to Megan with the property address. Megan handles the ordering and arranges installation through one of our vendors.</div>
+            </div>
+            <span class="role-badge role-pamela">Pamela</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Megan orders box and coordinates vendor install</div>
+              <div class="task-detail">Vendor installs the lockbox at the property. Box arrives empty — owner places the key per the access guide.</div>
+            </div>
+            <span class="role-badge role-megan">Megan</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Pamela emails owner with Rently access guide</div>
+              <div class="task-detail">Heads up that the box is being installed, reassures that no one can enter until they place the key, and links to the full owner guide. Notes Megan is available as backup for any technical Rently questions.</div>
+            </div>
+            <span class="role-badge role-pamela">Pamela</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Pamela receives written confirmation that the key is in the box</div>
+              <div class="task-detail">Non-negotiable checkpoint. Once the owner confirms, Megan tests access from her end and documents in AppFolio.</div>
+            </div>
+            <span class="role-badge role-pamela">Pamela</span>
+          </li>
+        </ul>
+
+        <a href="https://pamela-lgtm.github.io/Rently-Lockbox-Access-for-New-Clients-or-Current-Owners/" class="link-card" target="_blank" rel="noopener">
+          <span class="link-card-icon">→</span>
+          <div class="link-card-content">
+            <div class="link-card-label">Send to Owner</div>
+            <div class="link-card-title">Rently Lockbox Access Guide</div>
+          </div>
+        </a>
+
+        <div class="email-brief">
+          <div class="brief-header">
+            <span class="brief-header-label">Pamela → Owner · Rently Lockbox Heads-Up</span>
+            <span class="brief-tag">Email Brief</span>
+          </div>
+          <div class="brief-body">
+            <div class="brief-purpose">Prepares the owner for the lockbox installation and walks them toward placing the key. Should land before the vendor arrives at the property.</div>
+
+            <div class="brief-section">
+              <div class="brief-label">Should Cover</div>
+              <ul class="brief-list">
+                <li>Acknowledge receipt of the onboarding form — thank you, the team is moving forward</li>
+                <li>Heads-up that <strong>a vendor will be installing the Rently lockbox in the coming days</strong> at the property</li>
+                <li><strong>Critical reassurance:</strong> the box arrives empty — no one can enter until the owner places a key inside</li>
+                <li>Note that the owner does not need to be home for the installation, and does not need to place the key right away</li>
+                <li><strong>Link to the Rently Lockbox Owner Guide</strong></li>
+                <li>Mention that a friend or family member can place the key on the owner's behalf — just provide their phone number so Megan can register them with Rently</li>
+                <li>Request <strong>written confirmation</strong> (email or text) once the key is placed — this is the formal trigger to test access</li>
+                <li>Note that <strong>Megan is available as a backup resource</strong> for any technical Rently questions</li>
+              </ul>
+            </div>
+
+            <div class="brief-section">
+              <div class="brief-label">Tone</div>
+              <ul class="brief-list">
+                <li>Reassuring — owners can be uneasy about a lockbox on their door before they've placed the key</li>
+                <li>Make it clear there's no rush — the box will quietly wait at the property</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-section section-owner">
+        <div class="section-header"><span class="section-dot"></span><span>Owner Experience</span></div>
+        <ul class="task-list">
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Hears that the lockbox is being installed</div>
+              <div class="task-detail">No surprise if they drive by or a neighbor mentions it. Reassured that no one can enter until they place the key.</div>
+            </div>
+            <span class="role-badge role-owner">Owner</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Reads the Rently Lockbox Guide</div>
+              <div class="task-detail">Linked owner-facing guide explains registration, key placement, and confirmation step.</div>
+            </div>
+            <span class="role-badge role-owner">Owner</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Places key in lockbox (or has friend/family do it)</div>
+              <div class="task-detail">Single house key only. Other items left on kitchen counter for Linda or vendor to gather during walkthrough.</div>
+            </div>
+            <span class="role-badge role-owner">Owner</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Sends written confirmation to Linda</div>
+              <div class="task-detail">Email or text confirming the key is in the box.</div>
+            </div>
+            <span class="role-badge role-owner">Owner</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="timeline-marker">When property is rent-ready (or close to it)</div>
+
+  <!-- ============================================================ -->
+  <!-- PHASE 04 — PROPERTY WALKTHROUGH -->
+  <!-- ============================================================ -->
+  <section class="phase">
+    <header class="phase-header">
+      <div class="phase-num">04</div>
+      <div class="phase-title-block">
+        <div class="phase-title">Property Walkthrough</div>
+        <div class="phase-subtitle">Linda visits in person, or a vendor visits if outside Lake Nona</div>
+      </div>
+      <div class="phase-meta">Triggered By<br>Owner Schedule</div>
+    </header>
+    <div class="phase-body">
+
+      <div class="phase-intro">
+        <strong>Two paths, same form:</strong> If the owner is in the Lake Nona region, <strong>Linda visits in person</strong> — ideally when the property is rent-ready, or just before. This is where Linda's warmth shines. If the property is outside the region, <strong>Megan</strong> coordinates a trusted vendor to visit on Verandah's behalf and the vendor reports back to Megan. Either way, the on-site walkthrough form is completed and key items are gathered.
+      </div>
+
+      <div class="phase-section section-internal">
+        <div class="section-header"><span class="section-dot"></span><span>In-House Actions</span></div>
+        <ul class="task-list">
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Determine path: Linda visits or Megan schedules vendor</div>
+              <div class="task-detail">Lake Nona region → Linda visits in person. Outside region → <strong>Megan coordinates a trusted vendor to handle the walkthrough on Verandah's behalf</strong>. The form and the data captured are identical regardless of who visits.</div>
+            </div>
+            <span class="role-badge role-linda">Linda</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Megan schedules the vendor (out-of-region only)</div>
+              <div class="task-detail">For properties outside Lake Nona, Megan reaches out to a trusted vendor and coordinates timing with the owner directly. Linda is informed but does not own the scheduling.</div>
+            </div>
+            <span class="role-badge role-megan">Megan</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Schedule Linda's visit (Lake Nona properties)</div>
+              <div class="task-detail">Ideal timing: when the owner says the property is rent-ready, or just before. Coordinate around owner's schedule.</div>
+            </div>
+            <span class="role-badge role-linda">Linda</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Conduct walkthrough using the on-site form</div>
+              <div class="task-detail">The form captures appliances, fixtures, flooring, kitchen/bath finishes, outdoor features, and reference photos. All data feeds the AppFolio Property Page and marketing copy. <strong>Linda completes the form herself for Lake Nona walkthroughs</strong>; for out-of-region, vendor completes and submits to Megan.</div>
+            </div>
+            <span class="role-badge role-linda">Linda</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Gather keys and access items into branded envelope — left at the property</div>
+              <div class="task-detail">Verandah-branded key envelope: gathers all garage remotes, gate fobs, mailbox keys, amenity cards, etc. <em>Note: a single house key remains in the Rently lockbox — only the additional items go in the envelope.</em> <strong>The envelope is left at the property in a designated, secure spot</strong> — chosen so it's out of view and out of reach during prospect tours. These items belong with the property and remain on-site, ready for the tenant at move-in. <strong>Linda handles this for Lake Nona walkthroughs; vendor handles for out-of-region.</strong></div>
+            </div>
+            <span class="role-badge role-linda">Linda</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Submit completed form &amp; document envelope placement</div>
+              <div class="task-detail">Form data flows to the AppFolio Property Page. <strong>The key envelope stays at the property</strong> in its designated spot, ready for the tenant at move-in. Linda or vendor photographs the envelope in place as part of the walkthrough form for documentation.</div>
+            </div>
+            <span class="role-badge role-linda">Linda</span>
+          </li>
+        </ul>
+
+        <a href="https://pamela-lgtm.github.io/New-Property-Final-Onboarding-Walk-Through/" class="link-card" target="_blank" rel="noopener">
+          <span class="link-card-icon">→</span>
+          <div class="link-card-content">
+            <div class="link-card-label">Walkthrough Tool</div>
+            <div class="link-card-title">On-Site Property Walkthrough Form</div>
+          </div>
+        </a>
+
+        <div class="email-brief">
+          <div class="brief-header">
+            <span class="brief-header-label">Linda → Owner · Walkthrough Scheduling</span>
+            <span class="brief-tag">Email Brief</span>
+          </div>
+          <div class="brief-body">
+            <div class="brief-purpose">Coordinates timing for the on-site walkthrough — adapted depending on whether Linda visits in person or Megan has scheduled a vendor.</div>
+
+            <div class="brief-section">
+              <div class="brief-label">Should Cover</div>
+              <ul class="brief-list">
+                <li>Explain the purpose of the walkthrough — capture appliances, fixtures, flooring, finishes for the AppFolio Property Page and listing</li>
+                <li>Note the approximate time required (30–45 minutes)</li>
+                <li>Ideal timing window — when the property is rent-ready, or shortly before</li>
+                <li><strong>For Lake Nona properties:</strong> Linda is doing the walkthrough herself; ask for a few times that work and offer to flex around their schedule</li>
+                <li><strong>For out-of-region properties:</strong> Megan has scheduled a trusted vendor to handle the walkthrough on Verandah's behalf; the vendor will reach out directly to schedule</li>
+                <li>If property is occupied, ask owner to give tenant the customary notice; if vacant, confirm Rently access is in place</li>
+              </ul>
+            </div>
+
+            <div class="brief-section">
+              <div class="brief-label">Tone</div>
+              <ul class="brief-list">
+                <li>Light and accommodating — Linda flexes to the owner's schedule, not the other way around</li>
+                <li>For vendor path: position it as Verandah's standard for properties outside the service area, not a downgrade</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-section section-owner">
+        <div class="section-header"><span class="section-dot"></span><span>Owner Experience</span></div>
+        <ul class="task-list">
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Coordinates walkthrough timing with Linda</div>
+              <div class="task-detail">Owner picks a time that works around their schedule.</div>
+            </div>
+            <span class="role-badge role-owner">Owner</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Meets Linda (or vendor) at the property — optional</div>
+              <div class="task-detail">If the owner is available, the in-person meeting is a chance to walk through the property together and discuss anything specific. If they're not available, the visit can be conducted using Rently access.</div>
+            </div>
+            <span class="role-badge role-owner">Owner</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="timeline-marker">After walkthrough</div>
+
+  <!-- ============================================================ -->
+  <!-- PHASE 05 — OWNER PORTAL SETUP -->
+  <!-- ============================================================ -->
+  <section class="phase">
+    <header class="phase-header">
+      <div class="phase-num">05</div>
+      <div class="phase-title-block">
+        <div class="phase-title">Owner Portal Setup</div>
+        <div class="phase-subtitle">Pamela triggers activation, sends owner the setup guide; Megan available as backup</div>
+      </div>
+      <div class="phase-meta">Owned By<br>Pamela</div>
+    </header>
+    <div class="phase-body">
+
+      <div class="phase-intro">
+        <strong>Once the AppFolio property page is built</strong>, Pamela triggers the activation email and sends the owner the setup guide. This is the home base for all financial transparency — statements, documents, 1099s. <strong>Megan is available as backup</strong> for any technical AppFolio/portal questions Pamela can't resolve directly, and takes over fully once the property is leased.
+      </div>
+
+      <div class="phase-section section-internal">
+        <div class="section-header"><span class="section-dot"></span><span>In-House Actions</span></div>
+        <ul class="task-list">
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Trigger the AppFolio activation email</div>
+              <div class="task-detail">Once the owner record is fully populated in AppFolio, send the portal activation invitation.</div>
+            </div>
+            <span class="role-badge role-pamela">Pamela</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Email owner with portal setup guide</div>
+              <div class="task-detail">Pamela's note gives context, links to the owner-facing portal guide, and offers help if the owner gets stuck on activation or 2FA. Notes Megan is available for technical backup.</div>
+            </div>
+            <span class="role-badge role-pamela">Pamela</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Confirm successful activation in AppFolio</div>
+              <div class="task-detail">Verify the owner has created their password and completed 2FA setup. If they're stuck, follow up with a personal touch.</div>
+            </div>
+            <span class="role-badge role-pamela">Pamela</span>
+          </li>
+        </ul>
+
+        <a href="https://pamela-lgtm.github.io/Owner-Portal-Onboarding---New-Client-Onboarding/" class="link-card" target="_blank" rel="noopener">
+          <span class="link-card-icon">→</span>
+          <div class="link-card-content">
+            <div class="link-card-label">Send to Owner</div>
+            <div class="link-card-title">Owner Portal Setup Guide</div>
+          </div>
+        </a>
+
+        <div class="email-brief">
+          <div class="brief-header">
+            <span class="brief-header-label">Pamela → Owner · Portal Activation</span>
+            <span class="brief-tag">Email Brief</span>
+          </div>
+          <div class="brief-body">
+            <div class="brief-purpose">Sent in tandem with the AppFolio system activation email — gives the owner a friendly, branded walkthrough that complements the system message.</div>
+
+            <div class="brief-section">
+              <div class="brief-label">Should Cover</div>
+              <ul class="brief-list">
+                <li>Note that the AppFolio activation email is on its way (or already in their inbox)</li>
+                <li>Brief overview of what the portal contains: <strong>two statements per month</strong>, year-end 1099, shared documents, real-time visibility into income/expenses/disbursements</li>
+                <li><strong>Link to the Owner Portal Setup Guide</strong></li>
+                <li>Heads-up that two-factor authentication is required (SMS or phone call — email 2FA was retired)</li>
+                <li>Reassurance that an empty-looking dashboard is normal until the property is leased</li>
+                <li>Offer of a five-minute phone walkthrough if they hit any snags</li>
+                <li>Note that <strong>Megan is available as backup</strong> for technical AppFolio questions, and takes over fully once the property is leased</li>
+              </ul>
+            </div>
+
+            <div class="brief-section">
+              <div class="brief-label">Tone</div>
+              <ul class="brief-list">
+                <li>Inviting — this is the start of long-term financial transparency, not a chore</li>
+                <li>Anticipates and pre-empts common confusion points (empty dashboard, 2FA setup)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-section section-owner">
+        <div class="section-header"><span class="section-dot"></span><span>Owner Experience</span></div>
+        <ul class="task-list">
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Receives AppFolio activation email + Pamela's guide</div>
+              <div class="task-detail">Two emails arrive together — the AppFolio system email and Pamela's friendly walkthrough.</div>
+            </div>
+            <span class="role-badge role-owner">Owner</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Activates portal, creates password, sets up 2FA</div>
+              <div class="task-detail">Following the setup guide, owner is fully set up in about ten minutes.</div>
+            </div>
+            <span class="role-badge role-owner">Owner</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="timeline-marker">Once property is rent-ready &amp; marketing materials gathered</div>
+
+  <!-- ============================================================ -->
+  <!-- PHASE 06 — MARKETING LAUNCH -->
+  <!-- ============================================================ -->
+  <section class="phase">
+    <header class="phase-header">
+      <div class="phase-num">06</div>
+      <div class="phase-title-block">
+        <div class="phase-title">Marketing Launch</div>
+        <div class="phase-subtitle">Harvey publishes &amp; syndicates the listing; Pamela emails the owner with the live link and overview</div>
+      </div>
+      <div class="phase-meta">Owned By<br>Harvey + Pamela</div>
+    </header>
+    <div class="phase-body">
+
+      <div class="phase-intro">
+        <strong>Two roles, working in tandem.</strong> Once the property is rent-ready, the walkthrough is complete, marketing photos are in hand, and the listing description is written, <strong>Harvey (Marketing Manager)</strong> publishes the listing across major rental platforms and runs the marketing launch behind the scenes. <strong>Pamela</strong> then sends the owner the live listing links and a brief overview — and reintroduces Linda as the owner's direct contact for showings, feedback, and applications from this point through tenant placement.
+      </div>
+
+      <div class="phase-section section-internal">
+        <div class="section-header"><span class="section-dot"></span><span>In-House Actions</span></div>
+        <ul class="task-list">
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Confirm rent-ready status with the owner</div>
+              <div class="task-detail">Property is clean, repairs completed, walkthrough done, marketing materials ready. Owner confirms they're ready for listing to go live.</div>
+            </div>
+            <span class="role-badge role-pamela">Pamela</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Hand listing description &amp; marketing materials to Harvey</div>
+              <div class="task-detail">Pamela writes the listing description in brand voice and forwards to Harvey along with marketing photos and any property-specific notes Harvey needs to know.</div>
+            </div>
+            <span class="role-badge role-pamela">Pamela</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Publish listing on AppFolio + syndicate to major platforms</div>
+              <div class="task-detail">Harvey publishes the listing and triggers syndication across Zillow, Trulia, Apartments.com, and other major rental platforms. Confirms listing is live across all channels and reports back to Pamela with the live links.</div>
+            </div>
+            <span class="role-badge role-harvey">Harvey</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Email owner with the live listing links &amp; marketing overview</div>
+              <div class="task-detail">Celebratory note — your property is live! Includes the AppFolio public-facing URL and the major syndication links (Zillow, Trulia, Apartments.com). Sets expectation that Linda will take over weekly communication from here through tenant placement.</div>
+            </div>
+            <span class="role-badge role-pamela">Pamela</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Brief Linda on the listing going live</div>
+              <div class="task-detail">Internal handoff — Linda is now the owner's primary contact for showings, feedback, and applications.</div>
+            </div>
+            <span class="role-badge role-pamela">Pamela</span>
+          </li>
+        </ul>
+
+        <div class="email-brief">
+          <div class="brief-header">
+            <span class="brief-header-label">Pamela → Owner · Marketing Launch &amp; Overview</span>
+            <span class="brief-tag">Email Brief</span>
+          </div>
+          <div class="brief-body">
+            <div class="brief-purpose">Marks the launch of the listing. Celebratory, energizing — provides the marketing links and signals the handoff to Linda for ongoing showings/feedback communication.</div>
+
+            <div class="brief-section">
+              <div class="brief-label">Should Cover</div>
+              <ul class="brief-list">
+                <li>Celebratory tone — "Your property is officially live on the market!"</li>
+                <li>The AppFolio public-facing listing link</li>
+                <li>The major syndication links (Zillow, Trulia, Apartments.com) once they appear — typically within 24–48 hours of publish</li>
+                <li>Note that <strong>Harvey, our Marketing Manager</strong>, is the person behind the scenes running the marketing launch and ongoing platform optimization</li>
+                <li><strong>Reintroduce Linda</strong> as the owner's primary contact from here through tenant placement — she'll send the first update within a few days of listing going live, then weekly cadence</li>
+                <li>Note that Linda will keep them apprised of showings, feedback themes, and any incoming applications</li>
+              </ul>
+            </div>
+
+            <div class="brief-section">
+              <div class="brief-label">Tone</div>
+              <ul class="brief-list">
+                <li>Energizing — this is a real milestone for the owner</li>
+                <li>Hands off cleanly to Linda — owner knows exactly who to expect contact from next</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-section section-owner">
+        <div class="section-header"><span class="section-dot"></span><span>Owner Experience</span></div>
+        <ul class="task-list">
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Receives the live listing link</div>
+              <div class="task-detail">Sees their property live on the market for the first time — a real emotional moment.</div>
+            </div>
+            <span class="role-badge role-owner">Owner</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Knows Linda is the next voice they'll hear</div>
+              <div class="task-detail">Clean handoff — no confusion about who to contact for showings, feedback, applications.</div>
+            </div>
+            <span class="role-badge role-owner">Owner</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="timeline-marker">Through showings, feedback &amp; applications</div>
+
+  <!-- ============================================================ -->
+  <!-- PHASE 07 — THE WHITE-GLOVE PERIOD -->
+  <!-- ============================================================ -->
+  <section class="phase">
+    <header class="phase-header">
+      <div class="phase-num">07</div>
+      <div class="phase-title-block">
+        <div class="phase-title">The White-Glove Period</div>
+        <div class="phase-subtitle">Linda hand-holds the owner through showings, feedback, and applications</div>
+      </div>
+      <div class="phase-meta">Through<br>Lease Signed</div>
+    </header>
+    <div class="phase-body">
+
+      <div class="phase-intro">
+        <strong>This is the heart of Linda's role.</strong> From the moment the property is listed through lease signing, Linda is the owner's voice — keeping them apprised of activity, fielding questions, relaying applications, providing the white-glove experience that justifies Verandah's positioning. If she doesn't know an answer, she always knows who on the team does.
+      </div>
+
+      <div class="phase-section section-internal">
+        <div class="section-header"><span class="section-dot"></span><span>In-House Actions</span></div>
+        <ul class="task-list">
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Send weekly owner updates</div>
+              <div class="task-detail">Standing cadence — typically a 3-day check-in shortly after listing, then 7-day intervals. Adjusts to owner communication preference. Reports inquiries, showings (Rently self-tours + scheduled), feedback themes, days on market.</div>
+            </div>
+            <span class="role-badge role-linda">Linda</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Monitor market signals; flag price reviews</div>
+              <div class="task-detail">If days-on-market or showing-to-application conversion lag comparable properties, Linda opens the price conversation with data — proactively, before it becomes urgent.</div>
+            </div>
+            <span class="role-badge role-linda">Linda</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Coordinate with internal team on owner questions</div>
+              <div class="task-detail">If the owner has a question outside Linda's direct expertise (e.g., maintenance, accounting), she routes it to the right team member and stays in the loop until it's resolved. The owner always hears back from Linda — never the team member directly.</div>
+            </div>
+            <span class="role-badge role-linda">Linda</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Receive applications from internal team and update owner</div>
+              <div class="task-detail">When an application comes in and is processed by the team, Linda relays the outcome to the owner. Verandah makes approval/denial decisions based on our standards — the owner is informed, not asked to approve individual applicants.</div>
+            </div>
+            <span class="role-badge role-linda">Linda</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Document all owner communication in AppFolio</div>
+              <div class="task-detail">Every call note, email summary, and text exchange logged so the team has full context.</div>
+            </div>
+            <span class="role-badge role-linda">Linda</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Meet with current owners who want to view their property</div>
+              <div class="task-detail">A separate workflow that runs in parallel — current Verandah owners (with existing tenants or recently vacated properties) sometimes request property visits. Linda is the warm face who meets them at the property and walks them through. This is part of Linda's ongoing relationship-stewardship role across the Verandah portfolio, not just new clients.</div>
+            </div>
+            <span class="role-badge role-linda">Linda</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="phase-section section-owner">
+        <div class="section-header"><span class="section-dot"></span><span>Owner Experience</span></div>
+        <ul class="task-list">
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Receives steady, predictable updates from Linda</div>
+              <div class="task-detail">Never wonders what's happening. Always has a single point of contact. Feels held.</div>
+            </div>
+            <span class="role-badge role-owner">Owner</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Can ask Linda anything at any time</div>
+              <div class="task-detail">Linda answers what she can and routes the rest — owner only ever talks to Linda.</div>
+            </div>
+            <span class="role-badge role-owner">Owner</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="timeline-marker">Lease Signed</div>
+
+  <!-- ============================================================ -->
+  <!-- PHASE 08 — HANDOFF TO MEGAN'S TEAM -->
+  <!-- ============================================================ -->
+  <section class="phase">
+    <header class="phase-header">
+      <div class="phase-num">08</div>
+      <div class="phase-title-block">
+        <div class="phase-title">Handoff to Client Experience</div>
+        <div class="phase-subtitle">Linda gracefully steps aside; Megan and Luz take over</div>
+      </div>
+      <div class="phase-meta">Final<br>Linda Step</div>
+    </header>
+    <div class="phase-body">
+
+      <div class="phase-intro">
+        <strong>The lease is signed.</strong> This is the moment Linda's role on this client concludes. She sends the formal handoff email introducing Megan and Luz, explains what happens next (move-in inspection, first rent, first disbursement, first statement), and remains available through the immediate transition for any onboarding-related questions.
+      </div>
+
+      <div class="phase-section section-internal">
+        <div class="section-header"><span class="section-dot"></span><span>In-House Actions</span></div>
+        <ul class="task-list">
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Send the lease-signed handoff email</div>
+              <div class="task-detail">Celebrates the milestone, formally introduces Megan and Luz as the ongoing contacts, sets expectations for the next 30 days, and gives the new email address (clientexperience@verandahproperties.com).</div>
+            </div>
+            <span class="role-badge role-linda">Linda</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Brief Megan and Luz on the client</div>
+              <div class="task-detail">Internal handoff: any quirks, communication preferences, sensitivities, or open items. Ensures continuity of relationship.</div>
+            </div>
+            <span class="role-badge role-linda">Linda</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Remain available through the transition</div>
+              <div class="task-detail">For the first couple of weeks post-lease, Linda fields any onboarding-related follow-ups. After that, ongoing relationship belongs to Client Experience.</div>
+            </div>
+            <span class="role-badge role-linda">Linda</span>
+          </li>
+        </ul>
+
+        <div class="email-brief">
+          <div class="brief-header">
+            <span class="brief-header-label">Linda → Owner · Lease-Signed Handoff</span>
+            <span class="brief-tag">Email Brief</span>
+          </div>
+          <div class="brief-body">
+            <div class="brief-purpose">Marks the milestone, formally hands the relationship to Megan and Luz. The emotional bookend of Linda's role with this client.</div>
+
+            <div class="brief-section">
+              <div class="brief-label">Should Cover</div>
+              <ul class="brief-list">
+                <li>Celebrate the milestone — lease signed, tenant moving in on [date]</li>
+                <li>Brief reflection on the journey together — onboarding, marketing, applicant approval</li>
+                <li><strong>Formal introduction of Megan Fairchild (Director of Client Experience) and Luz Reyes (Client Experience Manager, bilingual English/Spanish)</strong> as the ongoing contacts</li>
+                <li>New email address: <strong>clientexperience@verandahproperties.com</strong> — covers statements, contributions, maintenance, banking, anything operational</li>
+                <li>What to expect in the next 30 days: move-in inspection, first rent collection, first owner disbursement, first owner statement</li>
+                <li>Linda remains available through the immediate transition for any lingering onboarding questions</li>
+                <li>Sincere thanks for trust placed in Verandah</li>
+              </ul>
+            </div>
+
+            <div class="brief-section">
+              <div class="brief-label">Tone</div>
+              <ul class="brief-list">
+                <li>Warm, celebratory — this is a real moment</li>
+                <li>Personal — written in Linda's voice, reflecting the actual journey with this owner</li>
+                <li>Confident — the handoff is intentional and the team is ready</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-section section-owner">
+        <div class="section-header"><span class="section-dot"></span><span>Owner Experience</span></div>
+        <ul class="task-list">
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Celebrates the lease milestone</div>
+              <div class="task-detail">Owner feels acknowledged for the journey, knows what's next, and trusts the handoff to Client Experience.</div>
+            </div>
+            <span class="role-badge role-owner">Owner</span>
+          </li>
+          <li class="task">
+            <span class="task-marker"></span>
+            <div class="task-content">
+              <div class="task-title">Meets Megan and Luz</div>
+              <div class="task-detail">Two new friendly faces, one shared mission. Owner has the new email address (clientexperience@) and clear expectations.</div>
+            </div>
+            <span class="role-badge role-owner">Owner</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- COMPANION DOCS -->
+  <section class="phase" style="margin-top: 56px;">
+    <header class="phase-header" style="background: var(--ink); border-bottom: none;">
+      <div class="phase-num" style="color: var(--gold);">∞</div>
+      <div class="phase-title-block">
+        <div class="phase-title" style="color: var(--paper);">Companion Documents</div>
+        <div class="phase-subtitle" style="color: rgba(250, 248, 243, 0.7);">All the linked guides and forms in one place</div>
+      </div>
+      <div class="phase-meta" style="color: var(--gold);">Quick<br>Reference</div>
+    </header>
+    <div class="phase-body">
+      <a href="https://pamela-lgtm.github.io/Welcome-to-Verandah/" class="link-card" target="_blank" rel="noopener">
+        <span class="link-card-icon">→</span>
+        <div class="link-card-content">
+          <div class="link-card-label">Owner-Facing · Celebration</div>
+          <div class="link-card-title">Welcome to Verandah — Your New Property Journey</div>
+        </div>
+      </a>
+      <a href="https://pamela-lgtm.github.io/Owner-Onboarding-Guide/" class="link-card" target="_blank" rel="noopener">
+        <span class="link-card-icon">→</span>
+        <div class="link-card-content">
+          <div class="link-card-label">Internal Workflow</div>
+          <div class="link-card-title">Owner Onboarding Guide (full process)</div>
+        </div>
+      </a>
+      <a href="https://pamela-lgtm.github.io/New-Property-Final-Onboarding-Walk-Through/" class="link-card" target="_blank" rel="noopener">
+        <span class="link-card-icon">→</span>
+        <div class="link-card-content">
+          <div class="link-card-label">Linda's Field Tool</div>
+          <div class="link-card-title">On-Site Property Walkthrough Form</div>
+        </div>
+      </a>
+      <a href="https://pamela-lgtm.github.io/Rently-Lockbox-Access-for-New-Clients-or-Current-Owners/" class="link-card" target="_blank" rel="noopener">
+        <span class="link-card-icon">→</span>
+        <div class="link-card-content">
+          <div class="link-card-label">Owner-Facing</div>
+          <div class="link-card-title">Rently Lockbox Access Guide</div>
+        </div>
+      </a>
+      <a href="https://pamela-lgtm.github.io/Owner-Portal-Onboarding---New-Client-Onboarding/" class="link-card" target="_blank" rel="noopener">
+        <span class="link-card-icon">→</span>
+        <div class="link-card-content">
+          <div class="link-card-label">Owner-Facing</div>
+          <div class="link-card-title">Owner Portal Setup Guide</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">Verandah Properties</div>
+      <div class="footer-meta">
+        The Liaison Process · V1<br>
+        Internal Process Document · Linda Lopez
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // VIEW TOGGLE
+  const toggles = document.querySelectorAll('.view-toggle');
+  toggles.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const view = btn.dataset.view;
+      document.body.dataset.view = view;
+      toggles.forEach(b => {
+        b.classList.toggle('active', b === btn);
+        b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
